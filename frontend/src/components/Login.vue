@@ -5,8 +5,8 @@
   
         <form id="loginForm">
           <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input name="email" type="email" class="form-control" required />
+            <label class="form-label">User</label>
+            <input name="text" type="text" class="form-control" required />
           </div>
   
           <div class="mb-3">
@@ -19,7 +19,7 @@
             />
           </div>
   
-          <div class="d-flex justify-content-start">
+          <div class="d-flex justify-content-start mt-4">
             <button type="submit" class="btn btn-primary">Login</button>
           </div>
         </form>
