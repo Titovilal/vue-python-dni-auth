@@ -4,6 +4,9 @@
 
   <div class="row">
     <div class="col-md-8 mx-auto">
+      <div class="d-flex justify-content-start mb-3">
+          <button type="button" class="btn btn-danger">Logout</button>
+        </div>
       <div class="mb-3">
         <label for="search" class="form-label">Search:</label>
         <div class="input-group">

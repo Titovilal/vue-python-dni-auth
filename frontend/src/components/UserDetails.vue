@@ -6,7 +6,7 @@
       <h1 class="text-center mb-4 mt-5">User Details</h1>
 
       <form id="accountform">
-        <div class="d-flex justify-content-end mb-3">
+        <div class="d-flex justify-content-start mb-3">
           <button type="button" class="btn btn-danger">Logout</button>
         </div>
 

@@ -33,7 +33,7 @@
           />
         </div>
 
-        <div class="d-flex justify-content-start mt-4">
+        <div class="d-flex justify-content-end mt-4">
           <button type="submit" class="btn btn-primary">Register</button>
         </div>
       </form>
