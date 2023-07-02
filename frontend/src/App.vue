@@ -10,17 +10,11 @@ import ValidateUser from "./components/ValidateUser.vue";
 <template>
   <!-- <Navbar msg="Vite + Vue" />-->
 
-  <Start />
-  <hr />
-  <Register />
-  <hr />
-  <Login />
-  <hr />
-  <UserList />
-  <hr />
-  <UserDetails />
-  <hr />
-  <ValidateUser />
+  
+  <div id="app">
+    <Start />
+    <router-view/>
+  </div>
 </template>
 
 <style scoped></style>
