@@ -5,6 +5,7 @@ import Start from "./components/Start.vue";
 import Register from "./components/Register.vue";
 import UserDetails from "./components/UserDetails.vue";
 import ValidateUser from "./components/ValidateUser.vue";
+import LoginAdmin from "./components/LoginAdmin.vue";
 
 const routes = [
   {
@@ -37,7 +38,12 @@ const routes = [
     name: "ValidateUser",
     component: ValidateUser,
   },
-]; 
+  {
+    path: "/login-admin",
+    name: "LoginAdmin",
+    component: LoginAdmin,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
