@@ -3,7 +3,7 @@
 <template>
   <!-- <Navbar msg="Vite + Vue" />-->
 
-  <div id="app">
+  <div id="app" class="overflow-x-hidden">
     <router-view />
   </div>
 </template>
