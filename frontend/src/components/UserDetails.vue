@@ -6,8 +6,14 @@
       <h1 class="text-center mb-4 mt-5">User Details</h1>
 
       <form id="accountform">
-        <div class="d-flex justify-content-start mb-3">
+        <div class="d-flex justify-content-between mb-3">
+          
           <router-link to="/" class="btn btn-danger"> Logout</router-link>
+          <div>
+            <button type="button" class="btn btn-primary">Modify Data</button>
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary">Save Data</button>
+          </div>
         </div>
 
         <div class="row mb-3">
@@ -111,14 +117,11 @@
             />
           </div>
         </div>
-
-        <div class="d-flex justify-content-between mt-4">
-          <button type="button" class="btn btn-primary">Modify Data</button>
-          <button type="submit" class="btn btn-primary">Save Data</button>
-        </div>
       </form>
     </div>
   </div>
+  <br />
+  <br />
 </template>
 
 <style scoped></style>
