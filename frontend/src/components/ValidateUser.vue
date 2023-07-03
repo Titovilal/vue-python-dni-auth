@@ -2,14 +2,14 @@
   <div class="container">
     <h1 class="text-center mb-4 mt-5">Validate User</h1>
     <div class="d-flex justify-content-start mb-3">
-          <button type="button" class="btn btn-secondary">Go back</button>
-        </div>
+      <router-link to="/user-list" class="btn btn-secondary"> Go back</router-link>
+    </div>
     <div class="row">
       <div class="col-md-8">
         <form id="accountform">
           <div class="card mb-3">
-            <h5 class="card-header">User Details</h5>
-            
+            <h5 class="card-header text-center">User Details</h5>
+
             <div class="card-body">
               <!-- Aquí van los campos de entrada -->
               <div class="mb-3">
@@ -83,15 +83,18 @@
       </div>
       <div class="col-md-4">
         <div class="card mb-3">
-          <h5 class="card-header">Photo</h5>
+          <h5 class="card-header  text-center">User valid</h5>
+        </div>
+        <div class="card mb-3">
+          <h5 class="card-header text-center">Photo</h5>
           <img src="photo1.jpg" class="card-img-top" alt="Photo 1" />
         </div>
         <div class="card mb-3">
-          <h5 class="card-header">ID Card Front</h5>
+          <h5 class="card-header text-center">ID Card Front</h5>
           <img src="photo2.jpg" class="card-img-top" alt="Photo 2" />
         </div>
         <div class="card mb-3">
-          <h5 class="card-header">ID Card Back</h5>
+          <h5 class="card-header text-center">ID Card Back</h5>
           <img src="photo3.jpg" class="card-img-top" alt="Photo 3" />
         </div>
       </div>

@@ -8,10 +8,10 @@
         <router-link to="/register" class="btn btn-primary btn-lg">
           Register</router-link
         >
-        <router-link to="/login" class="btn btn-primary btn-lg">
+        <router-link to="/user-details" class="btn btn-primary btn-lg">
           Login User</router-link
         >
-        <router-link to="/login" class="btn btn-primary btn-lg">
+        <router-link to="/user-list" class="btn btn-primary btn-lg">
           Login Admin</router-link
         >
       </div>

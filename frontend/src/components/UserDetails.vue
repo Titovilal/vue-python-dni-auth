@@ -7,7 +7,7 @@
 
       <form id="accountform">
         <div class="d-flex justify-content-start mb-3">
-          <button type="button" class="btn btn-danger">Logout</button>
+          <router-link to="/" class="btn btn-danger"> Logout</router-link>
         </div>
 
         <div class="row mb-3">

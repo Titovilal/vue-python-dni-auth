@@ -33,8 +33,13 @@
           />
         </div>
 
-        <div class="d-flex justify-content-end mt-4">
-          <button type="submit" class="btn btn-primary">Register</button>
+        <div class="d-flex justify-content-between mt-4">
+          <router-link to="/" class="btn btn-secondary">
+            Go back</router-link
+          >
+          <router-link to="/login" class="btn btn-primary">
+            Register</router-link
+          >
         </div>
       </form>
     </div>
