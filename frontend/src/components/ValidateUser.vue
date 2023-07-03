@@ -72,7 +72,7 @@
                   required
                 />
               </div>
-              <div class="mt-3">
+              <div class="d-flex justify-content-center mt-4">
                 <button type="button" class="btn btn-primary">
                   Validate User
                 </button>
