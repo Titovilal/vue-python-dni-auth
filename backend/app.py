@@ -1,21 +1,16 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-# Press F5 to start debug mode
+from config import *
+from models import *
+from views import *
+from views import views_bp
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/vue-python-dni-auth-db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.register_blueprint(views_bp)
+app.config.from_object('config')
 
-
-db = SQLAlchemy(app)
-ma = Marshmallow(app)
-
-@app.route('/', methods=['GET'])
-def index():
-    return 'Hello World!'
-
+db.init_app(app)
+ma.init_app(app)
 
 if __name__ == '__main__':
     app.run(debug=True)
