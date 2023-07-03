@@ -1,19 +1,10 @@
-<script setup>
-import Login from "./components/Login.vue";
-import UserList from "./components/UserList.vue";
-import Start from "./components/Start.vue";
-import Register from "./components/Register.vue";
-import UserDetails from "./components/UserDetails.vue";
-import ValidateUser from "./components/ValidateUser.vue";
-</script>
+<script setup></script>
 
 <template>
   <!-- <Navbar msg="Vite + Vue" />-->
 
-  
   <div id="app">
-    <Start />
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
