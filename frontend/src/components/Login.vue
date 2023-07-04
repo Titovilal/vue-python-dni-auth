@@ -3,16 +3,16 @@
     <div class="col-md-6">
       <h1 class="text-center mb-4 mt-5">Login</h1>
 
-      <form id="loginForm">
+      <form id="loginForm" @submit.prevent="login">
         <div class="mb-3">
           <label class="form-label">User</label>
-          <input name="text" type="text" class="form-control" required />
+          <input v-model="username" type="text" class="form-control" required />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Password</label>
           <input
-            name="password"
+            v-model="password"
             type="password"
             class="form-control"
             required
@@ -21,15 +21,46 @@
 
         <div class="d-flex justify-content-between mt-4">
           <router-link to="/" class="btn btn-secondary"> Go back</router-link>
-          <router-link to="/user-details" class="btn btn-primary">
-            Login</router-link
-          >
+          <button type="submit" class="btn btn-primary">Login</button>
         </div>
       </form>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await fetch("http://localhost:5000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: this.username,
+            password: this.password,
+          }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          this.$router.push("/user-details");
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped></style>

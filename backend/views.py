@@ -1,5 +1,5 @@
 from models import Admins, AdminSchema
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, request
 from models import Users, Details, UserSchema, DetailSchema
 
 views_bp = Blueprint('views', __name__)
@@ -52,3 +52,37 @@ def get_admin(id):
     admin_schema = AdminSchema()
     result = admin_schema.dump(admin)
     return jsonify(result)
+
+
+@views_bp.route('/users/<string:username>', methods=['GET'])
+def get_user_by_username(username):
+    user = Users.query.filter_by(username=username).first()
+    user_schema = UserSchema()
+    result = user_schema.dump(user)
+    return jsonify(result)
+
+
+@views_bp.route('/admins/<string:username>', methods=['GET'])
+def get_admin_by_username(username):
+    admin = Admins.query.filter_by(username=username).first()
+    admin_schema = AdminSchema()
+    result = admin_schema.dump(admin)
+    return jsonify(result)
+
+
+# Post routes
+
+
+@views_bp.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+
+    # Consulta la base de datos para verificar si las credenciales son válidas
+    user = Users.query.filter_by(username=username, password=password).first()
+    if user:
+        return jsonify({'success': True})
+    else:
+        return jsonify({'success': False, 'message': 'Invalid credentials'})
+
