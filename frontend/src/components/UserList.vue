@@ -35,27 +35,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>user1</td>
-              <td>John</td>
-              <td>Doe</td>
-              <td>12345678A</td>
-              <td>Yes</td>
+            <!-- Loop through the users array and create a table row for each user -->
+            <tr v-for="user in users" :key="user.id">
+              <td>{{ user.user }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.surname }}</td>
+              <td>{{ user.dni }}</td>
+              <td>{{ user.valid ? "Yes" : "No" }}</td>
               <td>
-                <router-link to="/validate-user" class="btn btn-primary float-end"> Validate</router-link>
+                <!-- Pass the user object as a prop to the validate-user route -->
+                <router-link
+                  :to="'/validate-user/' + user.id"
+                  class="btn btn-primary float-end"
+                >
+                  Validate
+                </router-link>
               </td>
             </tr>
-            <tr>
-              <td>user2</td>
-              <td>Jane</td>
-              <td>Smith</td>
-              <td>98765432B</td>
-              <td>No</td>
-              <td>
-                <router-link to="/validate-user" class="btn btn-primary float-end"> Validate</router-link>
-              </td>
-            </tr>
-            <!-- Add more user rows here -->
           </tbody>
         </table>
       </div>
@@ -63,6 +59,35 @@
   </div>
 </template>
 
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {
+      users: [],
+    };
+  },
+
+  methods: {
+    getUsers() {
+      fetch("http://localhost:5000/users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          this.users.push(...data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.getUsers();
+  },
+};
+</script>
 
 <style lang="scss" scoped></style>
