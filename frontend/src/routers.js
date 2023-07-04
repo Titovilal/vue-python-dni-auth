@@ -34,6 +34,11 @@ const routes = [
     component: UserDetails,
   },
   {
+    path: "/user-details/:username",
+    name: "user-details",
+    component: UserDetails,
+  },
+  {
     path: "/validate-user",
     name: "ValidateUser",
     component: ValidateUser,

@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -7,12 +5,15 @@
 
       <form id="accountform">
         <div class="d-flex justify-content-between mb-3">
-          
           <router-link to="/" class="btn btn-danger"> Logout</router-link>
           <div>
-            <button type="button" class="btn btn-primary">Modify Data</button>
+            <button type="button" class="btn btn-primary" @click="modifyData">
+              Modify Data
+            </button>
             &nbsp;&nbsp;
-            <button type="submit" class="btn btn-primary">Save Data</button>
+            <button type="submit" class="btn btn-primary" @click="saveData">
+              Save Data
+            </button>
           </div>
         </div>
 
@@ -20,20 +21,22 @@
           <div class="col-md-6">
             <label class="form-label">First Name</label>
             <input
+              v-model="user.name"
               name="first_name"
               type="text"
               class="form-control"
               required
-              disabled
+              :disabled="isDisabled"
             />
           </div>
           <div class="col-md-6">
             <label class="form-label">Last Name</label>
             <input
+              v-model="user.surname"
               name="last_name"
               type="text"
               class="form-control"
-              disabled
+              :disabled="isDisabled"
               required
             />
           </div>
@@ -43,20 +46,22 @@
           <div class="col-md-6">
             <label class="form-label">ID Card Number</label>
             <input
+              v-model="user.dni"
               name="id_card"
               type="text"
               class="form-control"
-              disabled
+              :disabled="isDisabled"
               required
             />
           </div>
           <div class="col-md-6">
             <label class="form-label">Date of Birth</label>
             <input
+              v-model="details.birthdate"
               name="date_of_birth"
               type="date"
               class="form-control"
-              disabled
+              :disabled="isDisabled"
               required
             />
           </div>
@@ -65,10 +70,11 @@
         <div class="mb-3">
           <label class="form-label">Email</label>
           <input
+            v-model="details.email"
             name="email"
             type="email"
             class="form-control"
-            disabled
+            :disabled="isDisabled"
             required
           />
         </div>
@@ -76,10 +82,11 @@
         <div class="mb-3">
           <label class="form-label">Address</label>
           <input
+            v-model="details.address"
             name="address"
             type="text"
             class="form-control"
-            disabled
+            :disabled="isDisabled"
             required
           />
         </div>
@@ -91,7 +98,7 @@
             type="file"
             class="form-control"
             required
-            disabled
+            :disabled="isDisabled"
           />
         </div>
 
@@ -102,7 +109,7 @@
               name="id_card_front"
               type="file"
               class="form-control"
-              disabled
+              :disabled="isDisabled"
               required
             />
           </div>
@@ -112,7 +119,7 @@
               name="id_card_back"
               type="file"
               class="form-control"
-              disabled
+              :disabled="isDisabled"
               required
             />
           </div>
@@ -124,4 +131,81 @@
   <br />
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      user: {},
+      details: {},
+      isDisabled: true,
+    };
+  },
+  methods: {/*
+    saveDataToDatabase() {
+      // Send a PUT request to update the user data
+      fetch(`http://localhost:5000/users/${this.user.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.user),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log("User data updated:", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      // Send a PUT request to update the user details
+      fetch(`http://localhost:5000/users/${this.user.id}/details`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.details),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log("User details updated:", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },*/
+    getUser() {
+      fetch(`http://localhost:5000/users/${this.$route.params.username}`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          this.user = data;
+          this.getUserDetails(data.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getUserDetails(id) {
+      fetch(`http://localhost:5000/users/${id}/details`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          this.details = data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    modifyData() {
+      this.isDisabled = false;
+    },
+    saveData() {
+      this.isDisabled = true;
+      //this.saveDataToDatabase();
+    },
+  },
+  created() {
+    this.getUser();
+  },
+};
+</script>
 <style scoped></style>
