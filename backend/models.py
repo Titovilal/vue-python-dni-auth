@@ -16,13 +16,13 @@ class Admins(db.Model):
 class Details(db.Model):
     __tablename__ = 'details'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.Text, nullable=False)
-    address = db.Column(db.Text, nullable=False)
-    phone = db.Column(db.Text, nullable=False)
-    birthdate = db.Column(db.Date, nullable=False)
-    photo = db.Column(db.LargeBinary, nullable=False)
-    dni_front = db.Column(db.LargeBinary, nullable=False)
-    dni_back = db.Column(db.LargeBinary, nullable=False)
+    email = db.Column(db.Text)
+    address = db.Column(db.Text)
+    phone = db.Column(db.Text)
+    birthdate = db.Column(db.Date)
+    photo = db.Column(db.LargeBinary)
+    dni_front = db.Column(db.LargeBinary)
+    dni_back = db.Column(db.LargeBinary)
 
 
 class Users(db.Model):
@@ -30,10 +30,10 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Text, nullable=False)
     password = db.Column(db.Text, nullable=False)
-    name = db.Column(db.Text, nullable=False)
-    surname = db.Column(db.Text, nullable=False)
-    dni = db.Column(db.Text, nullable=False)
-    valid = db.Column(db.Boolean, nullable=False)
+    name = db.Column(db.Text)
+    surname = db.Column(db.Text)
+    dni = db.Column(db.Text)
+    valid = db.Column(db.Boolean, nullable=False, default=False)
     id_details = db.Column(db.Integer, db.ForeignKey(
         'details.id'), nullable=False)
 
