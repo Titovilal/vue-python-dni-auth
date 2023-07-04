@@ -84,9 +84,10 @@
                 <button
                   type="button"
                   class="btn btn-primary"
+                  :disabled="user.valid"
                   @click="validateUser"
                 >
-                  Validate User
+                {{ user.valid ? "Already validated" : "Validate" }}
                 </button>
               </div>
             </div>
@@ -99,11 +100,6 @@
           <div class="card-body text-center">
             {{ user.valid ? "Yes" : "No" }}
           </div>
-        </div>
-        <div class="card mb-3">
-          <h5 class="card-header text-center">Photo</h5>
-          <!-- Display the user's photo -->
-          <img :src="'data:image/jpeg;base64,' + details.photo" alt="Photo" />
         </div>
         <div class="card mb-3">
           <h5 class="card-header text-center">ID Card Front</h5>
@@ -120,6 +116,11 @@
             :src="'data:image/jpeg;base64,' + details.dni_back"
             alt="ID Card Back"
           />
+        </div>
+        <div class="card mb-3">
+          <h5 class="card-header text-center">Photo</h5>
+          <!-- Display the user's photo -->
+          <img :src="'data:image/jpeg;base64,' + details.photo" alt="Photo" />
         </div>
       </div>
     </div>

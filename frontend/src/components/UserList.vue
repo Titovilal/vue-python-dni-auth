@@ -10,7 +10,7 @@
         <div class="mb-3">
           <label for="search" class="form-label">Search:</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="You can search by user, name, last name or dni" id="search" />
+            <input type="text" class="form-control" placeholder="You can search by user, name, last name or dni. Only shows full detailed users." id="search" />
             <button class="btn btn-outline-secondary" type="button">
               Search
             </button>
@@ -41,7 +41,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Loop through the filteredUsers array and create a table row for each user -->
             <tr v-for="user in filteredUsers" :key="user.id">
               <td>{{ user.username }}</td>
               <td>{{ user.name }}</td>
@@ -50,7 +49,6 @@
               <td>{{ user.dni }}</td>
               <td>{{ user.valid ? "Yes" : "No" }}</td>
               <td>
-                <!-- Pass the user object as a prop to the validate-user route -->
                 <router-link
                   :to="'/validate-user/' + user.id"
                   class="btn btn-primary float-end"
