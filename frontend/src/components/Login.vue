@@ -51,7 +51,7 @@ export default {
         });
         const data = await response.json();
         if (data.success) {
-          this.$router.push("/user-details");
+          this.$router.push(`/user-details/${this.username}`);
         } else {
           alert(data.message);
         }
