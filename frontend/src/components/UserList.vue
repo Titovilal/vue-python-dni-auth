@@ -10,7 +10,7 @@
         <div class="mb-3">
           <label for="search" class="form-label">Search:</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="search" />
+            <input type="text" class="form-control" placeholder="You can search by user, name, last name or dni" id="search" />
             <button class="btn btn-outline-secondary" type="button">
               Search
             </button>
@@ -18,7 +18,12 @@
         </div>
 
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="hideValidated" />
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="hideValidated"
+            v-model="hideValidated"
+          />
           <label class="form-check-label" for="hideValidated"
             >Hide Validated</label
           >
@@ -30,16 +35,18 @@
               <th>User</th>
               <th>Name</th>
               <th>Last Name</th>
+           
               <th>DNI</th>
               <th>Valid</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Loop through the users array and create a table row for each user -->
-            <tr v-for="user in users" :key="user.id">
+            <!-- Loop through the filteredUsers array and create a table row for each user -->
+            <tr v-for="user in filteredUsers" :key="user.id">
               <td>{{ user.user }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.surname }}</td>
+            
               <td>{{ user.dni }}</td>
               <td>{{ user.valid ? "Yes" : "No" }}</td>
               <td>
@@ -64,11 +71,23 @@ export default {
   data() {
     return {
       users: [],
+      hideValidated: false,
     };
+  },
+
+  computed: {
+    filteredUsers() {
+      if (this.hideValidated) {
+        return this.users.filter((user) => !user.valid);
+      } else {
+        return this.users;
+      }
+    },
   },
 
   methods: {
     getUsers() {
+      const searchValue = document.querySelector("#search").value;
       fetch("http://localhost:5000/users", {
         method: "GET",
         headers: {
@@ -77,15 +96,33 @@ export default {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          this.users.push(...data);
+          this.users = data.filter((user) =>
+            [user.user, user.name, user.surname, user.username, user.dni]
+              .join(" ")
+              .toLowerCase()
+              .includes(searchValue.toLowerCase())
+          );
+
+          localStorage.setItem("users", JSON.stringify(this.users));
         })
         .catch((error) => {
           console.log(error);
         });
     },
   },
-  created() {
-    this.getUsers();
+
+  mounted() {
+    document
+      .querySelector("button[type='button']")
+      .addEventListener("click", this.getUsers);
+    document.querySelector("#search").addEventListener("input", this.getUsers);
+
+    const users = JSON.parse(localStorage.getItem("users"));
+    if (users) {
+      this.users = users;
+    } else {
+      this.getUsers();
+    }
   },
 };
 </script>
