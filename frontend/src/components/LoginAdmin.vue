@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <h1 class="text-center mb-4 mt-5">Login</h1>
+        <h1 class="text-center mb-4 mt-5">Login Admin</h1>
   
         <form id="loginForm">
           <div class="mb-3">
