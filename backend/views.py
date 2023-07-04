@@ -95,7 +95,8 @@ def register():
     db.session.add(new_detail)
     db.session.flush()
 
-    new_user = Users(username=username, password=password, id_details=new_detail.id)
+    new_user = Users(username=username, password=password,
+                     id_details=new_detail.id)
 
     try:
         db.session.add(new_user)
@@ -109,7 +110,7 @@ def register():
 # PUT Routes
 
 
-@views_bp.route('/update-user/<id>', methods=['PUT'])
+@views_bp.route('/users/<int:id>', methods=['PUT'])
 def update_user(id):
     user = Users.query.get(id)
 
@@ -123,13 +124,6 @@ def update_user(id):
     surname = data.get('surname')
     dni = data.get('dni')
     valid = data.get('valid')
-    email = data.get('email')
-    address = data.get('address')
-    phone = data.get('phone')
-    birthdate = data.get('birthdate')
-    photo = data.get('photo')
-    dni_front = data.get('dni_front')
-    dni_back = data.get('dni_back')
 
     if username:
         user.username = username
@@ -144,22 +138,37 @@ def update_user(id):
     if valid is not None:
         user.valid = valid
 
+    db.session.commit()
+
+    return jsonify({'success': True})
+
+
+@views_bp.route('/users/<int:id>/details', methods=['PUT'])
+def update_user_details(id):
+    user = Users.query.get(id)
+
+    if not user:
+        return jsonify({'success': False, 'message': 'User not found'})
+
     details = Details.query.get(user.id_details)
-    if details:
-        if email:
-            details.email = email
-        if address:
-            details.address = address
-        if phone:
-            details.phone = phone
-        if birthdate:
-            details.birthdate = birthdate
-        if photo:
-            details.photo = photo
-        if dni_front:
-            details.dni_front = dni_front
-        if dni_back:
-            details.dni_back = dni_back
+
+    if not details:
+        return jsonify({'success': False, 'message': 'Details not found'})
+
+    data = request.get_json()
+    email = data.get('email')
+    address = data.get('address')
+    phone = data.get('phone')
+    birthdate = data.get('birthdate')
+
+    if email:
+        details.email = email
+    if address:
+        details.address = address
+    if phone:
+        details.phone = phone
+    if birthdate:
+        details.birthdate = birthdate
 
     db.session.commit()
 

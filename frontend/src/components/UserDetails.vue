@@ -3,7 +3,7 @@
     <div class="col-md-8">
       <h1 class="text-center mb-4 mt-5">User Details</h1>
 
-      <form id="accountform">
+      <form id="accountform" @submit.prevent="saveDataToDatabase">
         <div class="d-flex justify-content-between mb-3">
           <router-link to="/" class="btn btn-danger"> Logout</router-link>
           <div>
@@ -11,7 +11,7 @@
               Modify Data
             </button>
             &nbsp;&nbsp;
-            <button type="submit" class="btn btn-primary" @click="saveData">
+            <button type="button" class="btn btn-primary" @click="saveData">
               Save Data
             </button>
           </div>
@@ -140,9 +140,8 @@ export default {
       isDisabled: true,
     };
   },
-  methods: {/*
-    saveDataToDatabase() {
-      // Send a PUT request to update the user data
+  methods: {
+    async saveDataToDatabase() {
       fetch(`http://localhost:5000/users/${this.user.id}`, {
         method: "PUT",
         headers: {
@@ -158,7 +157,6 @@ export default {
           console.log(error);
         });
 
-      // Send a PUT request to update the user details
       fetch(`http://localhost:5000/users/${this.user.id}/details`, {
         method: "PUT",
         headers: {
@@ -173,7 +171,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },*/
+    },
     getUser() {
       fetch(`http://localhost:5000/users/${this.$route.params.username}`)
         .then((resp) => resp.json())
@@ -200,7 +198,7 @@ export default {
     },
     saveData() {
       this.isDisabled = true;
-      //this.saveDataToDatabase();
+      this.saveDataToDatabase();
     },
   },
   created() {
