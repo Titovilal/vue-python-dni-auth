@@ -9,7 +9,6 @@ ma = Marshmallow()
 class Admins(db.Model):
     __tablename__ = 'admins'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.Text, nullable=False)
     username = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     admin = db.Column(db.Boolean, nullable=False)
@@ -30,7 +29,8 @@ class Details(db.Model):
 class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.Text, nullable=False)
+    username = db.Column(db.Text, nullable=False)
+    password = db.Column(db.Text, nullable=False)
     name = db.Column(db.Text, nullable=False)
     surname = db.Column(db.Text, nullable=False)
     dni = db.Column(db.Text, nullable=False)
@@ -41,8 +41,7 @@ class Users(db.Model):
 
 class AdminSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'user', 'username', 'password',
-                  'admin')
+        fields = ('id', 'username', 'password')
 
 
 admin_schema = AdminSchema()
@@ -70,7 +69,7 @@ details_schema = DetailSchema(many=True)
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'user', 'name', 'surname',
+        fields = ('id', 'username', 'password', 'name', 'surname',
                   'dni', 'valid', 'id_details')
 
 

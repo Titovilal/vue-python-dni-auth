@@ -43,7 +43,7 @@
           <tbody>
             <!-- Loop through the filteredUsers array and create a table row for each user -->
             <tr v-for="user in filteredUsers" :key="user.id">
-              <td>{{ user.user }}</td>
+              <td>{{ user.username }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.surname }}</td>
             
@@ -97,7 +97,7 @@ export default {
         .then((resp) => resp.json())
         .then((data) => {
           this.users = data.filter((user) =>
-            [user.user, user.name, user.surname, user.username, user.dni]
+            [user.username, user.name, user.surname, user.username, user.dni]
               .join(" ")
               .toLowerCase()
               .includes(searchValue.toLowerCase())
