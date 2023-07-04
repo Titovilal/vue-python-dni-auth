@@ -39,6 +39,12 @@ const routes = [
     component: ValidateUser,
   },
   {
+    path: "/validate-user/:id",
+    name: "validate-user",
+    component: ValidateUser,
+    props: true,
+  },
+  {
     path: "/login-admin",
     name: "LoginAdmin",
     component: LoginAdmin,
