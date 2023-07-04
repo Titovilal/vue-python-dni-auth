@@ -11,7 +11,6 @@ class Admins(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    admin = db.Column(db.Boolean, nullable=False)
 
 
 class Details(db.Model):
