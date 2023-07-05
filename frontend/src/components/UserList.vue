@@ -10,7 +10,12 @@
         <div class="mb-3">
           <label for="search" class="form-label">Search:</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="You can search by user, name, last name or dni. Only shows full detailed users." id="search" />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="You can search by user, name, last name or dni. Only shows full detailed users."
+              id="search"
+            />
             <button class="btn btn-outline-secondary" type="button">
               Search
             </button>
@@ -35,7 +40,7 @@
               <th>User</th>
               <th>Name</th>
               <th>Last Name</th>
-           
+
               <th>DNI</th>
               <th>Valid</th>
             </tr>
@@ -45,7 +50,7 @@
               <td>{{ user.username }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.surname }}</td>
-            
+
               <td>{{ user.dni }}</td>
               <td>{{ user.valid ? "Yes" : "No" }}</td>
               <td>
