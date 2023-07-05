@@ -123,7 +123,6 @@ def update_user(id):
     name = data.get('name')
     surname = data.get('surname')
     dni = data.get('dni')
-    valid = data.get('valid')
 
     if username:
         user.username = username
@@ -135,8 +134,6 @@ def update_user(id):
         user.surname = surname
     if dni:
         user.dni = dni
-    if valid is not None:
-        user.valid = valid
 
     db.session.commit()
 
@@ -169,6 +166,24 @@ def update_user_details(id):
         details.phone = phone
     if birthdate:
         details.birthdate = birthdate
+
+    db.session.commit()
+
+    return jsonify({'success': True})
+
+
+@views_bp.route('/users/<int:id>/validate', methods=['PUT'])
+def validate_user(id):
+    user = Users.query.get(id)
+
+    if not user:
+        return jsonify({'success': False, 'message': 'User not found'})
+
+    data = request.get_json()
+    valid = data.get('valid')
+
+    if valid is not None:
+        user.valid = valid
 
     db.session.commit()
 
