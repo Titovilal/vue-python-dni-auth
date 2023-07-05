@@ -1,6 +1,8 @@
 from models import Admins, AdminSchema
 from flask import jsonify, Blueprint, request
 from models import Users, Details, UserSchema, DetailSchema, db
+import base64
+
 
 views_bp = Blueprint('views', __name__)
 
@@ -140,6 +142,8 @@ def update_user(id):
     return jsonify({'success': True})
 
 
+
+
 @views_bp.route('/users/<int:id>/details', methods=['PUT'])
 def update_user_details(id):
     user = Users.query.get(id)
@@ -157,6 +161,9 @@ def update_user_details(id):
     address = data.get('address')
     phone = data.get('phone')
     birthdate = data.get('birthdate')
+    photo = data.get('photo')
+    id_card_front = data.get('id_card_front')
+    id_card_back = data.get('id_card_back')
 
     if email:
         details.email = email
@@ -166,10 +173,23 @@ def update_user_details(id):
         details.phone = phone
     if birthdate:
         details.birthdate = birthdate
+    if photo:
+        header, photo_data = photo.split(',', 1)
+        photo_data = base64.b64decode(photo_data)
+        details.photo = photo_data
+    if id_card_front:
+        header, id_card_front_data = id_card_front.split(',', 1)
+        id_card_front_data = base64.b64decode(id_card_front_data)
+        details.dni_front = id_card_front_data
+    if id_card_back:
+        header, id_card_back_data = id_card_back.split(',', 1)
+        id_card_back_data = base64.b64decode(id_card_back_data)
+        details.dni_back = id_card_back_data
 
     db.session.commit()
 
     return jsonify({'success': True})
+
 
 
 @views_bp.route('/users/<int:id>/validate', methods=['PUT'])

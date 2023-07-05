@@ -93,8 +93,12 @@
           />
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Upload Photo</label>
+        <div class="row mb-3">
+          <label class="form-label"
+            >Upload Photo<span v-if="photoUploaded"
+              >. You have the last photo uploaded to the database
+            </span></label
+          >
           <input
             name="photo"
             type="file"
@@ -105,7 +109,11 @@
           />
         </div>
         <div class="row mb-3">
-          <label class="form-label">Upload ID Card (Front)</label>
+          <label class="form-label"
+            >Upload ID Card (Front)<span v-if="idCardFrontUploaded"
+              >. You have the last photo uploaded to the database
+            </span></label
+          >
           <input
             name="id_card_front"
             type="file"
@@ -116,7 +124,11 @@
           />
         </div>
         <div class="row mb-3">
-          <label class="form-label">Upload ID Card (Back)</label>
+          <label class="form-label"
+            >Upload ID Card (Back)<span v-if="idCardBackUploaded"
+              >. You have the last photo uploaded to the database
+            </span></label
+          >
           <input
             name="id_card_back"
             type="file"
@@ -140,6 +152,9 @@ export default {
       user: {},
       details: {},
       isDisabled: true,
+      photoUploaded: false,
+      idCardFrontUploaded: false,
+      idCardBackUploaded: false,
     };
   },
   methods: {
@@ -151,9 +166,11 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+
     clearLocalStorage() {
       localStorage.clear();
     },
+
     async saveDataToDatabase() {
       fetch(`http://localhost:5000/users/${this.user.id}`, {
         method: "PUT",
@@ -169,7 +186,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-
       fetch(`http://localhost:5000/users/${this.user.id}/details`, {
         method: "PUT",
         headers: {
@@ -185,6 +201,7 @@ export default {
           console.log(error);
         });
     },
+
     getUser() {
       fetch(`http://localhost:5000/users/${this.$route.params.username}`)
         .then((resp) => resp.json())
@@ -196,19 +213,28 @@ export default {
           console.log(error);
         });
     },
+
     getUserDetails(id) {
       fetch(`http://localhost:5000/users/${id}/details`)
         .then((resp) => resp.json())
         .then((data) => {
           this.details = data;
+          this.photoUploaded = !!data.photo;
+          this.idCardFrontUploaded = !!data.dni_front;
+          this.idCardBackUploaded = !!data.dni_back;
+          this.details.photo = null;
+          this.details.dni_front = null;
+          this.details.dni_back = null;
         })
         .catch((error) => {
           console.log(error);
         });
     },
+
     modifyData() {
       this.isDisabled = false;
     },
+
     saveData() {
       this.isDisabled = true;
       this.saveDataToDatabase();
