@@ -28,21 +28,13 @@ const routes = [
     name: "Register",
     component: Register,
   },
-  {
-    path: "/user-details",
-    name: "UserDetails",
-    component: UserDetails,
-  },
+
   {
     path: "/user-details/:username",
     name: "user-details",
     component: UserDetails,
   },
-  {
-    path: "/validate-user",
-    name: "ValidateUser",
-    component: ValidateUser,
-  },
+
   {
     path: "/validate-user/:id",
     name: "validate-user",
@@ -59,6 +51,28 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const userToken = localStorage.getItem("userToken");
+  const adminToken = localStorage.getItem("adminToken");
+  const loggedInUsername = localStorage.getItem("loggedInUsername");
+
+  if (
+    to.name === "user-details" &&
+    (!userToken || to.params.username !== loggedInUsername)
+  ) {
+    next({ name: "Login" });
+  } else if (
+    (to.name === "UserList" ||
+      to.name === "ValidateUser" ||
+      to.name === "validate-user") &&
+    !adminToken
+  ) {
+    next({ name: "LoginAdmin" });
+  } else {
+    next();
+  }
 });
 
 export default router;

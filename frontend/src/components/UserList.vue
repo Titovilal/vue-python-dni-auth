@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-8 mx-auto">
         <div class="d-flex justify-content-start mb-3">
-          <router-link to="/" class="btn btn-danger"> Logout</router-link>
+          <router-link to="/" class="btn btn-danger" @click="clearLocalStorage"> Logout</router-link>
         </div>
         <div class="mb-3">
           <label for="search" class="form-label">Search:</label>
@@ -89,6 +89,9 @@ export default {
   },
 
   methods: {
+    clearLocalStorage() {
+      localStorage.clear();
+    },
     getUsers() {
       const searchValue = document.querySelector("#search").value;
       fetch("http://localhost:5000/users", {

@@ -51,6 +51,8 @@ export default {
         });
         const data = await response.json();
         if (data.success) {
+          localStorage.setItem("userToken", "ok");
+          localStorage.setItem("loggedInUsername", this.username);
           this.$router.push(`/user-details/${this.username}`);
         } else {
           alert(data.message);

@@ -5,7 +5,9 @@
 
       <form id="accountform" @submit.prevent="saveDataToDatabase">
         <div class="d-flex justify-content-between mb-3">
-          <router-link to="/" class="btn btn-danger"> Logout</router-link>
+          <router-link to="/" class="btn btn-danger" @click="clearLocalStorage">
+            Logout</router-link
+          >
           <div>
             <button type="button" class="btn btn-primary" @click="modifyData">
               Modify Data
@@ -141,6 +143,9 @@ export default {
     };
   },
   methods: {
+    clearLocalStorage() {
+      localStorage.clear();
+    },
     async saveDataToDatabase() {
       fetch(`http://localhost:5000/users/${this.user.id}`, {
         method: "PUT",

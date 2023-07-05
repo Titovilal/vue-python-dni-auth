@@ -40,7 +40,6 @@ export default {
     async loginAdmin() {
       try {
         const response = await fetch("http://localhost:5000/login-admin", {
-          
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -52,6 +51,8 @@ export default {
         });
         const data = await response.json();
         if (data.success) {
+          localStorage.setItem("adminToken", "ok");
+          localStorage.setItem("loggedInUsername", this.username);
           this.$router.push(`/user-list`);
         } else {
           alert(data.message);
