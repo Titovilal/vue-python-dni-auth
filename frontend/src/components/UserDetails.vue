@@ -101,30 +101,30 @@
             class="form-control"
             required
             :disabled="isDisabled"
+            @change="handleFileUpload($event, 'photo')"
           />
         </div>
-
         <div class="row mb-3">
-          <div class="col-md-6">
-            <label class="form-label">Upload ID Card (Front)</label>
-            <input
-              name="id_card_front"
-              type="file"
-              class="form-control"
-              :disabled="isDisabled"
-              required
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Upload ID Card (Back)</label>
-            <input
-              name="id_card_back"
-              type="file"
-              class="form-control"
-              :disabled="isDisabled"
-              required
-            />
-          </div>
+          <label class="form-label">Upload ID Card (Front)</label>
+          <input
+            name="id_card_front"
+            type="file"
+            class="form-control"
+            :disabled="isDisabled"
+            required
+            @change="handleFileUpload($event, 'id_card_front')"
+          />
+        </div>
+        <div class="row mb-3">
+          <label class="form-label">Upload ID Card (Back)</label>
+          <input
+            name="id_card_back"
+            type="file"
+            class="form-control"
+            :disabled="isDisabled"
+            required
+            @change="handleFileUpload($event, 'id_card_back')"
+          />
         </div>
       </form>
     </div>
@@ -143,6 +143,14 @@ export default {
     };
   },
   methods: {
+    handleFileUpload(event, key) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.details[key] = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
     clearLocalStorage() {
       localStorage.clear();
     },
