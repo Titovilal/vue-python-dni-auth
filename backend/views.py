@@ -64,8 +64,9 @@ def login():
     username = data['username']
     password = data['password']
 
-    user = Users.query.filter_by(username=username, password=password).first()
-    if user:
+    if user := Users.query.filter_by(
+        username=username, password=password
+    ).first():
         return jsonify({'success': True})
     else:
         return jsonify({'success': False, 'message': 'Invalid credentials'})
@@ -77,9 +78,9 @@ def loginAdmin():
     username = data['username']
     password = data['password']
 
-    admin = Admins.query.filter_by(
-        username=username, password=password).first()
-    if admin:
+    if admin := Admins.query.filter_by(
+        username=username, password=password
+    ).first():
         return jsonify({'success': True})
     else:
         return jsonify({'success': False, 'message': 'Invalid credentials'})
