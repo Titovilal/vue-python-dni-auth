@@ -13,7 +13,7 @@
               Modify Data
             </button>
             &nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" @click="saveData">
+            <button type="submit" class="btn btn-primary" @click="saveData">
               Save Data
             </button>
           </div>
