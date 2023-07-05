@@ -13,7 +13,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="You can search by user, name, last name or dni. Only shows full detailed users."
+              placeholder="You can search by user, name, last name or dni"
               id="search"
             />
             <button class="btn btn-outline-secondary" type="button">
