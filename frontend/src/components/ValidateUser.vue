@@ -8,7 +8,7 @@
     </div>
     <div class="row">
       <div class="col-md-8">
-        <form id="accountform">
+        <form id="accountform" @submit.prevent="validateUser">
           <div class="card mb-3">
             <h5 class="card-header text-center">User Details</h5>
 
@@ -82,12 +82,11 @@
               </div>
               <div class="d-flex justify-content-center mt-4">
                 <button
-                  type="button"
+                  type="submit"
                   class="btn btn-primary"
                   :disabled="user.valid"
-                  @click="validateUser"
                 >
-                {{ user.valid ? "Already validated" : "Validate" }}
+                  {{ user.valid ? "Already validated" : "Validate" }}
                 </button>
               </div>
             </div>
@@ -167,7 +166,7 @@ export default {
         });
     },
     validateUser() {
-      fetch(`http://localhost:5000/users/${this.$route.params.id}`, {
+      fetch(`http://localhost:5000/users/${this.$route.params.id}/validate`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -177,6 +176,7 @@ export default {
         .then((resp) => resp.json())
         .then((data) => {
           this.user = data;
+          this.user.valid = true;
         })
         .catch((error) => {
           console.log(error);
