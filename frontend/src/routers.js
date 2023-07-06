@@ -1,50 +1,50 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "./components/Login.vue";
-import UserList from "./components/UserList.vue";
-import Start from "./components/Start.vue";
-import Register from "./components/Register.vue";
-import UserDetails from "./components/UserDetails.vue";
-import ValidateUser from "./components/ValidateUser.vue";
-import LoginAdmin from "./components/LoginAdmin.vue";
+import Home from "./components/Home.vue";
+import AdminUserList from "./components/admin/AdminUserList.vue";
+import AdminUserListValidate from "./components/admin/AdminUserListValidate.vue";
+import AdminLogin from "./components/admin/AdminLogin.vue";
+import ClientDetails from "./components/client/ClientDetails.vue";
+import ClientLogin from "./components/client/ClientLogin.vue";
+import ClientRegister from "./components/client/ClientRegister.vue";
 
 const routes = [
   {
     path: "/",
-    name: "Start",
-    component: Start,
+    name: "Home",
+    component: Home,
   },
   {
-    path: "/login",
-    name: "Login",
-    component: Login,
+    path: "/login/client",
+    name: "ClientLogin",
+    component: ClientLogin,
   },
   {
     path: "/user-list",
-    name: "UserList",
-    component: UserList,
+    name: "AdminUserList",
+    component: AdminUserList,
   },
   {
     path: "/register",
-    name: "Register",
-    component: Register,
+    name: "ClientRegister",
+    component: ClientRegister,
   },
 
   {
     path: "/user-details/:username",
-    name: "user-details",
-    component: UserDetails,
+    name: "ClientDetails",
+    component: ClientDetails,
   },
 
   {
     path: "/validate-user/:id",
-    name: "validate-user",
-    component: ValidateUser,
+    name: "AdminUserListValidate",
+    component: AdminUserListValidate,
     props: true,
   },
   {
-    path: "/login-admin",
-    name: "LoginAdmin",
-    component: LoginAdmin,
+    path: "/login/admin",
+    name: "AdminLogin",
+    component: AdminLogin,
   },
 ];
 
@@ -62,14 +62,14 @@ router.beforeEach((to, from, next) => {
     to.name === "user-details" &&
     (!userToken || to.params.username !== loggedInUsername)
   ) {
-    next({ name: "Login" });
+    next({ name: "ClientLogin" });
   } else if (
-    (to.name === "UserList" ||
-      to.name === "ValidateUser" ||
+    (to.name === "AdminUserList" ||
+      to.name === "AdminUserListValidate" ||
       to.name === "validate-user") &&
     !adminToken
   ) {
-    next({ name: "LoginAdmin" });
+    next({ name: "AdminLogin" });
   } else {
     next();
   }

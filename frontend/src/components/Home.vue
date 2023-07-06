@@ -6,13 +6,13 @@
       <h1 class="text-center mb-4">Id Validator</h1>
       <div class="d-grid gap-3">
         <router-link to="/register" class="btn btn-primary btn-lg">
-          Register</router-link
+          Client Register</router-link
         >
-        <router-link to="/login" class="btn btn-primary btn-lg">
-          Login User</router-link
+        <router-link to="/login/client" class="btn btn-primary btn-lg">
+          Client Login</router-link
         >
-        <router-link to="/login-admin" class="btn btn-primary btn-lg">
-          Login Admin</router-link
+        <router-link to="/login/admin" class="btn btn-primary btn-lg">
+          Admin Login</router-link
         >
       </div>
     </div>
